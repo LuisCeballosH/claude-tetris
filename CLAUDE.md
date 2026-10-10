@@ -20,4 +20,5 @@ Three files: `index.html` (DOM + two canvases), `style.css`, and `game.js` (all 
 - **Piece lifecycle**: `lockPiece()` → `merge()` → `clearLines()` (updates score/level/`dropInterval`) → `spawn()`. `spawn()` calls `endGame()` if the new piece collides immediately.
 - **Rotation**: `rotateCW` + `tryRotate` with simple horizontal kicks `[0,-1,1,-2,2]` (not SRS).
 - **Canvas size coupling**: `#board` width/height in `index.html` (300×600) must equal `COLS*BLOCK × ROWS*BLOCK`; the next-piece canvas (120×120) assumes a 4×4 grid at 30px (`NB` in `drawNext`).
+- **Theme**: colors live in CSS variables (`:root` = dark default, `[data-theme="light"]` overrides). `setTheme()` in `game.js` sets `data-theme`, persists to `localStorage`, copies `--grid` into the module var `gridColor` (canvas can't read CSS) and repaints with `draw()`/`drawNext()`. Any new color must be a CSS variable.
 - Drop interval formula is duplicated: initial `1000` in `init()` and `max(100, 1000 - (level-1)*90)` in `clearLines()`.
